@@ -66,7 +66,6 @@ char* intToStr(int number)
     {
         len--;
         str[len] = number % 10 + '0';
-        printf("len in the loop is %d\n", len);
         number = number / 10;
     }
     return str;
@@ -75,16 +74,16 @@ char* intToStr(int number)
 char* intToDirection(int number) {
     char* str;
     if (number == 1) {
-        str = "NORTH";
+        str = "north";
     }
     else if (number == 2) {
-        str = "EAST";
+        str = "east";
     }
     else if (number == 3) {
-        str = "SOUTH";
+        str = "south";
     }
     else if (number == 3) {
-        str = "WEST";
+        str = "west";
     }
     return str;
 }
@@ -102,7 +101,6 @@ void find_positions(positions* strct, char a) {
     else if (strct->direction == WEST && a == 'A') {
         strct->x = strct->x - 1;
     }
-    printf("x = %d, y = %d\n", strct->x, strct->y);
 }
 
 void find_direction(positions* strct, char a) {
@@ -140,7 +138,7 @@ char* my_new_str(int x, int y, int direction) {
     int sumLen = 0;
     int countParts = 0;
 
-    char *str[7] = {"{x: ", x_to_str, ", y: ", y_to_str, ", bearing: ", direction_to_str, "}"};
+    char *str[7] = {"{x: ", x_to_str, ", y: ", y_to_str, ", bearing: '", direction_to_str, "'}"};
 
     while (countParts < 7)
     {
@@ -170,8 +168,17 @@ char* my_new_str(int x, int y, int direction) {
 }
 
 char* my_robot_simulator(char* a) {
+    int i = 0;
+
     positions my_positions = {0, 0, NORTH};
-    find_positions(&my_positions, 'A');
+
+
+    while (a[i] != '\0') {
+        find_positions(&my_positions, a[i]);
+        find_direction(&my_positions, a[i]);
+        i++;
+    }
+
     int len = strlen(my_new_str(my_positions.x, my_positions.y, my_positions.direction));
 
     char*str = malloc(sizeof(char) * len + 1);
@@ -181,11 +188,6 @@ char* my_robot_simulator(char* a) {
 }
 
 int main() {
-    printf("%s\n", my_robot_simulator("RAA"));
-    //printf("test intToStr 1 is %s\n", intToStr(1));
-    //printf("test intToStr 0 is %s\n", intToStr(0));
-    //printf("test intToStr -1 is %s\n", intToStr(-1));
-    //printf("test intToStr 22 is %s\n", intToStr(20));
-
+    printf("%s\n", my_robot_simulator("RAARA"));
     return 0;
 }
