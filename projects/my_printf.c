@@ -14,20 +14,6 @@ void print_str(char* str) {
     }
 }
 
-void decimalToStr(int nb) {
-    if (nb < 0) {
-        nb = nb * -1;
-        my_putchar('-');
-    }
-	if(nb >= 10)
-	{
-		decimalToStr(nb / 10);
-		decimalToStr(nb % 10);
-	}
-	else
-		my_putchar(nb + 48);
-}
-
 void uDecimalToStr(unsigned int nb) {
 	if(nb >= 10)
 	{
@@ -35,7 +21,15 @@ void uDecimalToStr(unsigned int nb) {
 		uDecimalToStr(nb % 10);
 	}
 	else
-		my_putchar(nb + 48);
+		my_putchar(nb + '0');
+}
+
+void decimalToStr(int nb) {
+    if (nb < 0) {
+        nb = nb * -1;
+        my_putchar('-');
+    }
+    uDecimalToStr(nb);
 }
 
 void toOctalStr(unsigned int nb) {
@@ -45,7 +39,7 @@ void toOctalStr(unsigned int nb) {
 		toOctalStr(nb % 8);
 	}
     else
-		my_putchar(nb + 48);
+		my_putchar(nb + '0');
 }
 
 void toHexadecimal(unsigned long int nb) {
@@ -75,7 +69,7 @@ void toHexadecimal(unsigned long int nb) {
         }
     }
     else
-		my_putchar(nb + 48);
+		my_putchar(nb + '0');
 }
 
 int my_printf(char* fmt, ...) {
@@ -115,7 +109,7 @@ int my_printf(char* fmt, ...) {
             break;
         case 'x':
             ptr = va_arg(ap, intptr_t);
-            toHexadecimal(uival);
+            toHexadecimal(ptr);
             break;
         case 'p':
             ptr = va_arg(ap, intptr_t);
@@ -134,14 +128,22 @@ int my_printf(char* fmt, ...) {
 int main() {
     char* lStr = "Hello";
     char letter = 'a';
-    // printf("%c\n", letter);
-    // printf("printf %%p %p\n", lStr);
-    // my_printf("my putchar %c\n", letter);
-    // my_printf("my to str %s is %c number %d\n", "letter", letter, -014);
-    // printf("printf %s is %c x number %x\n", "letter", letter, 351);
-    // my_printf("my_printf %s is %c x number %x\n", "letter", letter, 351);
-    my_printf("my_printf %x\n", 351);
-    my_printf("my_printf %x\n", 351);
+
+    printf("printf c and s %c %s\n", 'a', "hello");
+    my_printf("my_printf c and s %c %s\n", 'a', "hello");
+    
+    printf("printf d %d\n", -351);
+    my_printf("my_printf d %d\n", -351);
+
+    printf("printf u %u\n", -351);
+    my_printf("my_printf u %u\n", -351);
+
+    printf("printf o %o\n", 351);
+    my_printf("my_printf o %o\n", 351);
+
+    printf("printf x %x\n", 351);
+    my_printf("my_printf x %x\n", 351);
+
     printf("printf %%p %p\n", lStr);
     my_printf("my_printf %p\n", lStr);
     return 0;
