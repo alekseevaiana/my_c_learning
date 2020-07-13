@@ -190,11 +190,6 @@ char* count_letter(char* param_1)
     {
         str_nb = int_to_str(list[get_letter_index(this_ones_letter_str[index])]);
         my_cycle = one_cycle(this_ones_letter_str[index], str_nb);
-        
-        //printf("my_cycle is %s\n", my_cycle);
-        //my_str[my_index] = this_ones_letter_str[index];
-        //my_index++;
-        //index++;
         nb_index = 0;
         while (my_cycle[nb_index] != '\0')
         {
@@ -210,7 +205,6 @@ char* count_letter(char* param_1)
             my_str[my_index] = ' ';
             my_index++;
         }
-        //printf("list [%c] %s\n", this_ones_letter_str[index], str_nb);
         index++;
     }
     my_str[my_index] = '\0';
